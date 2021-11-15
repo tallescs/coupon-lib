@@ -40,5 +40,13 @@ namespace PrinterLib
             var area = g.MeasureString(Text, Font, GetWidth(), Format);
             return area.ToSize().Height + Margins.Top + Margins.Bottom;
         }
+
+        public Rectangle GetPrintableRectangle(Graphics g, int x, int y)
+        {
+            var xFinal = x + Margins.Left;
+            var yFinal = y + Margins.Top;
+
+            return new Rectangle(xFinal, yFinal, GetWidth(), GetHeight(g));
+        }
     }
 }
