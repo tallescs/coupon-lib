@@ -45,8 +45,8 @@
     <Compile Include="BuildingBlocks\Block.cs" />
     <Compile Include="BuildingBlocks\BlockFillPosition.cs" />
     <Compile Include="BuildingBlocks\BlockStyle.cs" />
-    <Compile Include="Coupon\Coupon.cs" />
-    <Compile Include="Coupon\CouponPrintDocument.cs">
+    <Compile Include="Coupons\Coupon.cs" />
+    <Compile Include="Coupons\CouponPrintDocument.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="BuildingBlocks\DefaultBlockStyle.cs" />

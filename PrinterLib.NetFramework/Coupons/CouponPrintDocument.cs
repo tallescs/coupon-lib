@@ -8,6 +8,7 @@ namespace PrinterLib
     public class CouponPrintDocument : PrintDocument
     {
         private IEnumerable<Line> _lines { get; set; } = new List<Line>();
+
         public int Width => (int)this.DefaultPageSettings.PrintableArea.Width;
 
         public CouponPrintDocument(string printerName) : this()
@@ -51,7 +52,7 @@ namespace PrinterLib
 
                 foreach (var block in line.Blocks)
                 {
-                    var rectangle = GetPrintableRectangle(block, e.Graphics, currentX, currentY);
+                    var rectangle = block.GetPrintableRectangle(e.Graphics, currentX, currentY);
 
                     var text = block.GetText(e.Graphics);
 
@@ -62,14 +63,6 @@ namespace PrinterLib
                 currentY += heights.Max();
                 currentX = startX;
             }
-        }
-
-        private Rectangle GetPrintableRectangle(Block block, Graphics g, int x, int y)
-        {
-            var xFinal = x + block.Margins.Left;
-            var yFinal = y + block.Margins.Top;
-
-            return new Rectangle(xFinal, yFinal, block.GetWidth(), block.GetHeight(g));
         }
     }
 }
