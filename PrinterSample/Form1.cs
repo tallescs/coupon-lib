@@ -26,7 +26,34 @@ namespace PrinterSample
             var saleCoupon = new SaleCoupon(printDocument.Width, new DefaultBlockStyle(), data);
             saleCoupon.Build();
 
-            printDocument.Print(saleCoupon);
+            Print(printDocument, saleCoupon);
+        }
+
+        public void Print(CouponPrintDocument printDocument, Coupon coupon,
+            string printerName = null, bool preview = false)
+        {
+            if (!string.IsNullOrWhiteSpace(printerName))
+            {
+                printDocument.PrinterSettings.PrinterName = printerName;
+            }
+            else if (!preview)
+            {
+                using (var dialog = new PrintDialog { UseEXDialog = true, Document = printDocument })
+                {
+                    if (dialog.ShowDialog() != DialogResult.OK)
+                        return;
+                }
+            }
+
+            if (preview)
+            {
+                using (var dialog = new PrintPreviewDialog { Document = printDocument })
+                    dialog.ShowDialog();
+            }
+            else
+            {
+                printDocument.Print(coupon);
+            }
         }
 
         private void btnLoad_Click(object sender, EventArgs e)
