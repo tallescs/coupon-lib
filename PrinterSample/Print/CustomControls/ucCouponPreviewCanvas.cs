@@ -1,5 +1,5 @@
-﻿using PrinterSample.Print.Samples;
-using PrinterSample.Print.Samples.Sale;
+﻿using PrinterLib.Samples.Sale;
+using PrinterLib;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -32,16 +32,11 @@ namespace PrinterSample.Print.CustomControls
                 Company = company,
             };
 
-            var printDocument = new CouponPrintDocument();
             var style = new DefaultBlockStyle();
-            var saleCoupon = new SaleCoupon(printDocument.Width, style, data);
+            var saleCoupon = new SaleCoupon(this.Width - 30, style, data);
             saleCoupon.Build();
-
-            printDocument.Print(saleCoupon);
-
             SetLines(saleCoupon.Lines);
         }
-
 
         public void SetLines(IEnumerable<Line> lines)
         {

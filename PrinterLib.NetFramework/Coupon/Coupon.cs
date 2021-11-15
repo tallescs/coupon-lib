@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PrinterSample.Print
+namespace PrinterLib
 {
     public class Coupon
     {

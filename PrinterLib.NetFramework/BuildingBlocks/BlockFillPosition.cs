@@ -1,4 +1,4 @@
-﻿namespace PrinterSample.Print
+﻿namespace PrinterLib
 {
     public enum BlockFillPosition
     {

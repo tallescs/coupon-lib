@@ -1,6 +1,5 @@
-﻿using PrinterSample.Print;
-using PrinterSample.Print.Samples;
-using PrinterSample.Print.Samples.Sale;
+﻿using PrinterLib;
+using PrinterLib.Samples.Sale;
 using PrinterSample.Repository;
 using System;
 using System.Windows.Forms;
@@ -28,12 +27,6 @@ namespace PrinterSample
             saleCoupon.Build();
 
             printDocument.Print(saleCoupon);
-
-            //var generator = new SaleCouponGenerator(data, style);
-
-            //var coupon = generator.CreateCoupon();
-
-            //printDocument.Print(coupon);
         }
 
         private void btnLoad_Click(object sender, EventArgs e)

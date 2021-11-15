@@ -1,4 +1,4 @@
-﻿namespace PrinterSample.Print.Samples.Sale
+﻿namespace PrinterLib.Samples.Sale
 {
     public class SaleCouponData
     {

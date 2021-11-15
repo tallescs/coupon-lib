@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Drawing.Printing;
 
-namespace PrinterSample.Print
+namespace PrinterLib
 {
     public class Block
     {

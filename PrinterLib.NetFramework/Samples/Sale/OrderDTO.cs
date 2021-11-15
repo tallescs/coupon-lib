@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace PrinterSample.Print.Samples.Sale
+namespace PrinterLib.Samples.Sale
 {
     public class OrderDTO
     {

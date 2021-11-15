@@ -2,13 +2,19 @@
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Linq;
-using System.Windows.Forms;
 
-namespace PrinterSample.Print
+namespace PrinterLib
 {
     public class CouponPrintDocument : PrintDocument
     {
-        private IEnumerable<Line> _lines;
+        private IEnumerable<Line> _lines { get; set; } = new List<Line>();
+        public int Width => (int)this.DefaultPageSettings.PrintableArea.Width;
+
+        public CouponPrintDocument(string printerName) : this()
+        {
+            if (!string.IsNullOrWhiteSpace(printerName))
+                this.PrinterSettings.PrinterName = printerName;
+        }
 
         public CouponPrintDocument()
         {
@@ -17,34 +23,10 @@ namespace PrinterSample.Print
             this.OriginAtMargins = true;
         }
 
-        public int Width => (int)this.DefaultPageSettings.PrintableArea.Width;
-
-        public void Print(Coupon coupon, string printerName = null, bool preview = false)
+        public virtual void Print(Coupon coupon)
         {
-            var lines = coupon.Lines;
-            if (!string.IsNullOrWhiteSpace(printerName))
-            {
-                this.PrinterSettings.PrinterName = printerName;
-            }
-            else if (!preview)
-            {
-                using (var dialog = new PrintDialog { UseEXDialog = true, Document = this })
-                {
-                    if (dialog.ShowDialog() != DialogResult.OK)
-                        return;
-                }
-            }
-
-            _lines = lines;
-            if (preview)
-            {
-                using (var dialog = new PrintPreviewDialog { Document = this })
-                    dialog.ShowDialog();
-            }
-            else
-            {
-                base.Print();
-            }
+            _lines = coupon.Lines;
+            base.Print();
         }
 
         protected override void OnPrintPage(PrintPageEventArgs e)
@@ -73,10 +55,6 @@ namespace PrinterSample.Print
 
                     var text = block.GetText(e.Graphics);
 
-                    if (text.StartsWith("Quantidade"))
-                    {
-                        var x = 1;
-                    }
                     e.Graphics.DrawString(text, block.Font, block.Brush, rectangle, block.Format);
                     currentX += block.Width;
                     heights.Add(rectangle.Height);

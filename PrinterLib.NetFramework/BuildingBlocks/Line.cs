@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
-namespace PrinterSample.Print
+namespace PrinterLib
 {
     public class Line
     {

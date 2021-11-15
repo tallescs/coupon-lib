@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Linq;
 
-namespace PrinterSample.Print.Samples.Sale
+namespace PrinterLib.Samples.Sale
 {
     public class SaleCoupon : Coupon
     {
