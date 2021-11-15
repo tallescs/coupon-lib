@@ -1,6 +1,6 @@
 ﻿namespace PrinterSample.Print
 {
-    public enum FillPosition
+    public enum BlockFillPosition
     {
         Right = 0,
         Left = 1,

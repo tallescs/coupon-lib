@@ -7,6 +7,7 @@ namespace PrinterSample.Print
 {
     public class Line
     {
+        protected BlockStyle BlockStyle { get; set; }
         private IList<Block> _blocks { get; set; } = new List<Block>();
         public IList<Block> Blocks => _blocks;
         public int Width { get; }
@@ -16,23 +17,53 @@ namespace PrinterSample.Print
             this.Width = width;
         }
 
+        public Line(int width, BlockStyle blockStyle)
+        {
+            Width = width;
+            BlockStyle = blockStyle;
+        }
+
+        public Block AddBlock(string text)
+        {
+            ValidateBlockWidth(Width);
+
+            var block = new Block(text, Width, BlockStyle);
+            _blocks.Add(block);
+            return block;
+        }
+        
+        public Block AddBlock(string text, int percentWidth, BlockStyle style)
+        {
+            decimal adjust = (decimal)percentWidth / 100;
+            int blockWidth = (int)Math.Floor(adjust * Width);
+
+            ValidateBlockWidth(blockWidth);
+
+            var block = new Block(text, blockWidth, style);
+            _blocks.Add(block);
+            return block;
+        }
+
+        public Block AddBlock(Block block)
+        {
+            ValidateBlockWidth(block.Width);
+            _blocks.Add(block);
+            return block;
+        }
+
+        private void ValidateBlockWidth(int blockWidth)
+        {
+            var currentBlocksWidth = _blocks.Sum(p => p.Width);
+            if (blockWidth + currentBlocksWidth > Width)
+                throw new ArgumentException("Adding this block would surpass this Line width");
+        }
+
         public int GetHeight(Graphics g)
         {
             if (!_blocks.Any())
                 return 0;
             
-            return _blocks.Max(p => p.GetTextHeight(g));
-        }
-
-        public void AddBlock(Block block)
-        {
-            var currentBlocksWidth = _blocks.Sum(p => p.Width);
-            if (block.Width + currentBlocksWidth > Width)
-                throw new ArgumentException("Adding this block would surpass this Line width");
-            else if (block.Width == 0)
-                throw new ArgumentException("Block width must be greater than 0.");
-
-            _blocks.Add(block);
+            return _blocks.Max(p => p.GetHeight(g));
         }
     }
 }

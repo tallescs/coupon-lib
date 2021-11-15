@@ -1,4 +1,5 @@
 ﻿using PrinterSample.Print.Samples;
+using PrinterSample.Print.Samples.Sale;
 
 namespace PrinterSample.Repository
 {

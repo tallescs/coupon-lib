@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
-namespace PrinterSample.Print.Samples
+namespace PrinterSample.Print.Samples.Sale
 {
     public class OrderDTO
     {
@@ -14,6 +15,14 @@ namespace PrinterSample.Print.Samples
         public decimal DeliveryFee { get; set; }
         public IEnumerable<OrderItemDTO> Items;
         public IEnumerable<PaymentDTO> Payments { get; set; }
+
+        public decimal GetChange()
+        {
+            if (!Payments.Any())
+                return 0;
+
+            return Payments.Sum(p => p.Value) - Total;
+        }
     }
 
     public class OrderItemDTO

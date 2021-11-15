@@ -54,8 +54,8 @@
     </Compile>
     <Compile Include="Print\Block.cs" />
     <Compile Include="Print\BlockSpacing.cs" />
+    <Compile Include="Print\BlockStyle.cs" />
     <Compile Include="Print\Coupon.cs" />
-    <Compile Include="Print\CouponStyle.cs" />
     <Compile Include="Print\CouponGenerator.cs" />
     <Compile Include="Print\CouponPrintDocument.cs">
       <SubType>Component</SubType>
@@ -66,12 +66,14 @@
     <Compile Include="Print\CustomControls\ucCouponPreviewCanvas.designer.cs">
       <DependentUpon>ucCouponPreviewCanvas.cs</DependentUpon>
     </Compile>
-    <Compile Include="Print\DefaultCouponStyle.cs" />
-    <Compile Include="Print\FillPosition.cs" />
+    <Compile Include="Print\DefaultBlockStyle.cs" />
+    <Compile Include="Print\BlockFillPosition.cs" />
+    <Compile Include="Print\FillerBlock.cs" />
     <Compile Include="Print\Line.cs" />
     <Compile Include="Print\Samples\Sale\CompanyDTO.cs" />
     <Compile Include="Print\Samples\Sale\PaymentDTO.cs" />
     <Compile Include="Print\Samples\Sale\OrderDTO.cs" />
+    <Compile Include="Print\Samples\Sale\SaleCoupon.cs" />
     <Compile Include="Print\Samples\Sale\SaleCouponData.cs" />
     <Compile Include="Print\Samples\Sale\SaleCouponGenerator.cs" />
     <Compile Include="Program.cs" />
@@ -102,8 +104,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Print\Samples\Deliveryman\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

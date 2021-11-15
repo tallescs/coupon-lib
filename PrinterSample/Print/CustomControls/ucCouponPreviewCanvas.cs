@@ -1,4 +1,5 @@
 ﻿using PrinterSample.Print.Samples;
+using PrinterSample.Print.Samples.Sale;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -25,17 +26,20 @@ namespace PrinterSample.Print.CustomControls
 
         public void FillWithOrder(OrderDTO order, CompanyDTO company)
         {
-            var couponData = new SaleCouponData
+            var data = new SaleCouponData
             {
                 Order = order,
                 Company = company,
             };
 
-            var style = new DefaultCouponStyle(this.Width - 30);
-            var gen = new SaleCouponGenerator(couponData, style);
-            var report = gen.CreateCoupon();
+            var printDocument = new CouponPrintDocument();
+            var style = new DefaultBlockStyle();
+            var saleCoupon = new SaleCoupon(printDocument.Width, style, data);
+            saleCoupon.Build();
 
-            SetLines(report.Lines);
+            printDocument.Print(saleCoupon);
+
+            SetLines(saleCoupon.Lines);
         }
 
 
@@ -73,9 +77,8 @@ namespace PrinterSample.Print.CustomControls
                         {
                             var rectangle = GetPrintableRectangle(block, graphics, currentX, currentY);
 
-                            var text = GetBlockText(graphics, block);
-                            imgGraphics.DrawString(text, block.Font, Brushes.Black, rectangle,
-                                block.Format);
+                            imgGraphics.DrawString(block.GetText(graphics),
+                                block.Font, block.Brush, rectangle, block.Format);
                             currentX += block.Width;
                             heights.Add(rectangle.Height);
                         }
@@ -95,50 +98,12 @@ namespace PrinterSample.Print.CustomControls
         private int GetMaxHeight(IEnumerable<Line> lines, Graphics graphics) =>
             lines.Sum(p => p.GetHeight(graphics));
 
-        private string GetBlockText(Graphics g, Block block) =>
-            string.IsNullOrEmpty(block.Filler) ? block.Text : GetFilledText(g, block);
-
-        private string GetFilledText(Graphics g, Block block)
-        {
-            var blockSize = new SizeF(block.TextWidth, block.GetTextHeight(g));
-
-            var resultText = block.Text;
-            var textSize = g.MeasureString(block.Text, block.Font,
-               blockSize, block.Format, out int charsFilled, out int linesFilled);
-
-            var availableWidth = block.TextWidth - textSize.Width;
-
-            if (linesFilled == 1 && availableWidth > 0 && block.Filler.Length > 0)
-            {
-                var nextText = GetFilledText(resultText, block.Filler, block.FillPosition);
-                var nextWidth = g.MeasureString(nextText, block.Font).ToSize().Width;
-
-                while (nextWidth < block.TextWidth)
-                {
-                    resultText = nextText;
-                    nextText = GetFilledText(resultText, block.Filler, block.FillPosition);
-                    nextWidth = g.MeasureString(nextText, block.Font).ToSize().Width;
-                }
-            }
-            return resultText;
-        }
-
-        private string GetFilledText(string text, string filler, FillPosition fillPosition)
-        {
-            if (fillPosition == FillPosition.Right)
-                return $"{text}{filler}";
-            else if (fillPosition == FillPosition.Left)
-                return $"{filler}{text}";
-            else
-                return $"{filler}{text}{filler}";
-        }
-
         private Rectangle GetPrintableRectangle(Block block, Graphics g, int x, int y)
         {
             var xFinal = x + block.Margins.Left;
             var yFinal = y + block.Margins.Top;
 
-            return new Rectangle(xFinal, yFinal, block.TextWidth, block.GetTextHeight(g));
+            return new Rectangle(xFinal, yFinal, block.GetWidth(), block.GetHeight(g));
         }
     }
 }

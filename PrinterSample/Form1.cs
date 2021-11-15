@@ -1,5 +1,6 @@
 ﻿using PrinterSample.Print;
 using PrinterSample.Print.Samples;
+using PrinterSample.Print.Samples.Sale;
 using PrinterSample.Repository;
 using System;
 using System.Windows.Forms;
@@ -22,13 +23,17 @@ namespace PrinterSample
             };
 
             var printDocument = new CouponPrintDocument();
-            var style = new DefaultCouponStyle(printDocument.Width);
 
-            var generator = new SaleCouponGenerator(data, style);
+            var saleCoupon = new SaleCoupon(printDocument.Width, new DefaultBlockStyle(), data);
+            saleCoupon.Build();
 
-            var coupon = generator.CreateCoupon();
+            printDocument.Print(saleCoupon);
 
-            printDocument.Print(coupon);
+            //var generator = new SaleCouponGenerator(data, style);
+
+            //var coupon = generator.CreateCoupon();
+
+            //printDocument.Print(coupon);
         }
 
         private void btnLoad_Click(object sender, EventArgs e)

@@ -1,4 +1,4 @@
-﻿namespace PrinterSample.Print.Samples
+﻿namespace PrinterSample.Print.Samples.Sale
 {
     public class CompanyDTO
     {
