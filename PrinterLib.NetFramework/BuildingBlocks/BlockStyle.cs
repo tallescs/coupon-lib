@@ -8,7 +8,6 @@ namespace PrinterLib
         public Brush Brush { get; set; }
         public Margins Margins { get; set; }
         public StringFormat StringFormat { get; set; }
-        public BlockSpacing Spacing { get; set; }
 
         public BlockStyle Copy()
         {

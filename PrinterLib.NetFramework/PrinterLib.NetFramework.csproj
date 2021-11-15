@@ -44,7 +44,6 @@
   <ItemGroup>
     <Compile Include="BuildingBlocks\Block.cs" />
     <Compile Include="BuildingBlocks\BlockFillPosition.cs" />
-    <Compile Include="BuildingBlocks\BlockSpacing.cs" />
     <Compile Include="BuildingBlocks\BlockStyle.cs" />
     <Compile Include="Coupon\Coupon.cs" />
     <Compile Include="Coupon\CouponPrintDocument.cs">

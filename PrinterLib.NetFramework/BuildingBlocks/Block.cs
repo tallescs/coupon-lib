@@ -12,7 +12,6 @@ namespace PrinterLib
         public int Width { get; }
         public Margins Margins { get; }
         public StringFormat Format { get; }
-        public BlockSpacing Spacing { get; }
 
         public Block(string text, int width, BlockStyle style)
         {
@@ -28,7 +27,6 @@ namespace PrinterLib
             Font = style.Font;
             Format = style.StringFormat;
             Brush = style.Brush;
-            Spacing = style.Spacing;
             Margins = style.Margins;
         }
 
@@ -40,10 +38,7 @@ namespace PrinterLib
         public virtual int GetHeight(Graphics g)
         {
             var area = g.MeasureString(Text, Font, GetWidth(), Format);
-            return area.ToSize().Height + GetExtraHeight();
+            return area.ToSize().Height + Margins.Top + Margins.Bottom;
         }
-
-        protected int GetExtraHeight() =>
-            Spacing == BlockSpacing.Narrow ? 1 : 8;
     }
 }

@@ -11,7 +11,6 @@ namespace PrinterLib
             Margins = new Margins(2, 2, 2, 2);
             Brush = Brushes.Black;
             StringFormat = StringFormat.GenericTypographic;
-            Spacing = BlockSpacing.Narrow;
         }
     }
 }
