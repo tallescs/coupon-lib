@@ -1,4 +1,4 @@
-﻿namespace PrinterLib
+﻿namespace PrinterLib.Drawer
 {
     public class DrawResult
     {

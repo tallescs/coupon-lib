@@ -46,7 +46,7 @@
     <Compile Include="BuildingBlocks\BlockFillPosition.cs" />
     <Compile Include="BuildingBlocks\BlockStyle.cs" />
     <Compile Include="Drawer\DefaultDrawer.cs" />
-    <Compile Include="BuildingBlocks\DrawResult.cs" />
+    <Compile Include="Drawer\DrawResult.cs" />
     <Compile Include="Drawer\ICouponDrawer.cs" />
     <Compile Include="Coupons\Coupon.cs" />
     <Compile Include="Coupons\CouponPrintDocument.cs">
