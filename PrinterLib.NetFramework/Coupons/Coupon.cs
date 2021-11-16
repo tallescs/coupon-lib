@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace PrinterLib
 {
-    public class Coupon
+    public abstract class Coupon
     {
         public int Width { get; set; }
         public List<Line> Lines { get; set; } = new List<Line>();
@@ -13,6 +14,8 @@ namespace PrinterLib
             Width = width;
             BlockStyle = blockStyle;
         }
+        
+        public abstract void Build();
 
         public Line AddLine()
         {
@@ -30,5 +33,7 @@ namespace PrinterLib
 
             return line;
         }
+
+        
     }
 }

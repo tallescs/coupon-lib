@@ -36,7 +36,7 @@ namespace PrinterLib.Samples.Sale
             };
         }
 
-        public void Build()
+        public override void Build()
         {
             BuildHeader();
             BuildClientInfo();

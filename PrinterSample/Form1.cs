@@ -1,7 +1,9 @@
 ﻿using PrinterLib;
+using PrinterLib.Drawer;
 using PrinterLib.Samples.Sale;
 using PrinterSample.Repository;
 using System;
+using System.Drawing.Printing;
 using System.Windows.Forms;
 
 namespace PrinterSample
@@ -21,24 +23,24 @@ namespace PrinterSample
                 Order = MemoryRepository.Order,
             };
 
-            var printDocument = new CouponPrintDocument();
+            var printerWidth = (int) new PrintDocument().DefaultPageSettings.PrintableArea.Width;
 
-            var saleCoupon = new SaleCoupon(printDocument.Width, new DefaultBlockStyle(), data);
-            saleCoupon.Build();
+            var saleCoupon = new SaleCoupon(printerWidth, new DefaultBlockStyle(), data);
+            var printDocument = new CouponPrintDocument(saleCoupon, new DefaultDrawer());
 
-            Print(printDocument, saleCoupon);
+            Print(printDocument);
         }
 
-        public void Print(CouponPrintDocument printDocument, Coupon coupon,
+        public void Print(CouponPrintDocument couponPrint, 
             string printerName = null, bool preview = false)
         {
             if (!string.IsNullOrWhiteSpace(printerName))
             {
-                printDocument.PrinterSettings.PrinterName = printerName;
+                couponPrint.PrinterSettings.PrinterName = printerName;
             }
             else if (!preview)
             {
-                using (var dialog = new PrintDialog { UseEXDialog = true, Document = printDocument })
+                using (var dialog = new PrintDialog { UseEXDialog = true, Document = couponPrint })
                 {
                     if (dialog.ShowDialog() != DialogResult.OK)
                         return;
@@ -47,12 +49,12 @@ namespace PrinterSample
 
             if (preview)
             {
-                using (var dialog = new PrintPreviewDialog { Document = printDocument })
+                using (var dialog = new PrintPreviewDialog { Document = couponPrint })
                     dialog.ShowDialog();
             }
             else
             {
-                printDocument.Print(coupon);
+                couponPrint.Print();
             }
         }
 
