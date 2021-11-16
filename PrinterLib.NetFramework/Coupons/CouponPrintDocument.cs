@@ -51,7 +51,7 @@ namespace PrinterLib
 
                 foreach (var block in line.Blocks)
                 {
-                    var rectangle = block.GetPrintableRectangle(e.Graphics, currentX, currentY);
+                    var rectangle = block.GetRectangle(e.Graphics, currentX, currentY);
 
                     var text = block.GetText(e.Graphics);
 

@@ -41,7 +41,7 @@ namespace PrinterLib
             return area.ToSize().Height + Margins.Top + Margins.Bottom;
         }
 
-        public Rectangle GetPrintableRectangle(Graphics g, int x, int y)
+        public virtual Rectangle GetRectangle(Graphics g, int x, int y)
         {
             var xFinal = x + Margins.Left;
             var yFinal = y + Margins.Top;

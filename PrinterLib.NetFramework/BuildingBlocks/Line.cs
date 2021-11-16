@@ -8,8 +8,8 @@ namespace PrinterLib
     public class Line
     {
         protected BlockStyle BlockStyle { get; set; }
-        private IList<Block> _blocks { get; set; } = new List<Block>();
-        public IList<Block> Blocks => _blocks;
+        protected List<Block> _blocks { get; set; } = new List<Block>();
+        public IList<Block> Blocks => _blocks.AsReadOnly();
         public int Width { get; }
 
         public Line(int width)
@@ -51,19 +51,19 @@ namespace PrinterLib
             return block;
         }
 
-        private void ValidateBlockWidth(int blockWidth)
-        {
-            var currentBlocksWidth = _blocks.Sum(p => p.Width);
-            if (blockWidth + currentBlocksWidth > Width)
-                throw new ArgumentException("Adding this block would surpass this Line width");
-        }
-
         public int GetHeight(Graphics g)
         {
             if (!_blocks.Any())
                 return 0;
             
             return _blocks.Max(p => p.GetHeight(g));
+        }
+
+        private void ValidateBlockWidth(int blockWidth)
+        {
+            var currentBlocksWidth = _blocks.Sum(p => p.Width);
+            if (blockWidth + currentBlocksWidth > Width)
+                throw new ArgumentException("Adding this block would surpass this Line width");
         }
     }
 }
