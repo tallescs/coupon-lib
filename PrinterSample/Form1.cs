@@ -26,7 +26,7 @@ namespace PrinterSample
             var printerWidth = (int) new PrintDocument().DefaultPageSettings.PrintableArea.Width;
 
             var saleCoupon = new SaleCoupon(printerWidth, new DefaultBlockStyle(), data);
-            var printDocument = new CouponPrintDocument(saleCoupon, new DefaultDrawer());
+            var printDocument = new CouponPrintDocument(saleCoupon, new DefaultDrawStrategy());
 
             Print(printDocument);
         }

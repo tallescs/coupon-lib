@@ -8,7 +8,7 @@ namespace PrinterLib.Drawer
     /// Draws a coupon using Graphics in the area.
     /// Draws Lines top to bottom and Blocks left to right.
     /// </summary>
-    public class DefaultDrawer : ICouponDrawer
+    public class DefaultDrawStrategy : IDrawStrategy
     {
         public DrawResult Draw(Coupon coupon, Graphics graphics, Rectangle area)
         {

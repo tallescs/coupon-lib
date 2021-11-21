@@ -2,7 +2,7 @@
 
 namespace PrinterLib.Drawer
 {
-    public interface ICouponDrawer
+    public interface IDrawStrategy
     {
         DrawResult Draw(Coupon coupon, Graphics graphics, Rectangle area);
     }

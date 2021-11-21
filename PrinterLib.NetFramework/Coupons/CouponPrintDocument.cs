@@ -7,11 +7,11 @@ namespace PrinterLib
     public class CouponPrintDocument : PrintDocument
     {
         private readonly Coupon _coupon;
-        private readonly ICouponDrawer _drawer;
+        private readonly IDrawStrategy _drawer;
 
         public int Width => (int)this.DefaultPageSettings.PrintableArea.Width;
 
-        public CouponPrintDocument(Coupon coupon, ICouponDrawer drawer)
+        public CouponPrintDocument(Coupon coupon, IDrawStrategy drawer)
         {
             _coupon = coupon;
             _drawer = drawer;
